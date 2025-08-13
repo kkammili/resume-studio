@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
-// import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
 
 function App() {
   const [resumeSections, setResumeSections] = useState([
@@ -108,43 +108,32 @@ function App() {
     ],
   };
 
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (active.id !== over.id) {
-      const oldIndex = resumeSections.indexOf(active.id);
-      const newIndex = resumeSections.indexOf(over.id);
-      const newSections = Array.from(resumeSections);
-      newSections.splice(oldIndex, 1);
-      newSections.splice(newIndex, 0, active.id);
-      setResumeSections(newSections);
+  const [fontSize, setFontSize] = useState(14);
+  const [fontFamily, setFontFamily] = useState('Arial');
+  const [fontWeight, setFontWeight] = useState('normal');
+  const [fontStyle, setFontStyle] = useState('normal');
+  const [textAlign, setTextAlign] = useState('left');
+
+  const handleStyleChange = (style, value) => {
+    switch (style) {
+      case 'fontSize':
+        setFontSize(value);
+        break;
+      case 'fontFamily':
+        setFontFamily(value);
+        break;
+      case 'fontWeight':
+        setFontWeight(value);
+        break;
+      case 'fontStyle':
+        setFontStyle(value);
+        break;
+      case 'textAlign':
+        setTextAlign(value);
+        break;
+      default:
+        break;
     }
-  };
-
-  const DraggableSection = ({ id, children }) => {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
-      id,
-    });
-    const style = {
-      transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
-    };
-
-    return (
-      <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="resume-section">
-        {children}
-      </div>
-    );
-  };
-
-  const DroppableArea = ({ children }) => {
-    const { setNodeRef } = useDroppable({
-      id: 'droppable',
-    });
-
-    return (
-      <div ref={setNodeRef}>
-        {children}
-      </div>
-    );
   };
 
   const downloadPDF = () => {
@@ -153,19 +142,97 @@ function App() {
     doc.save("resume.pdf");
   };
 
+  const downloadDOCX = () => {
+    const doc = new Document({
+      sections: [
+        {
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: "Resume",
+                  bold: true,
+                }),
+              ],
+            }),
+          ],
+        },
+      ],
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      saveAs(blob, "resume.docx");
+    });
+  };
+
   return (
     <div className="resume-studio">
       <h1>Resume Studio</h1>
-      <DndContext onDragEnd={handleDragEnd}>
-        <DroppableArea>
-          {resumeSections.map((section) => (
-            <DraggableSection key={section} id={section}>
-              {section}
-            </DraggableSection>
-          ))}
-        </DroppableArea>
-      </DndContext>
+      <div className="controls">
+        <label>
+          Font Size:
+          <input
+            type="number"
+            value={fontSize}
+            onChange={(e) => handleStyleChange('fontSize', e.target.value)}
+          />
+        </label>
+        <label>
+          Font Family:
+          <select
+            value={fontFamily}
+            onChange={(e) => handleStyleChange('fontFamily', e.target.value)}
+          >
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+          </select>
+        </label>
+        <label>
+          Bold:
+          <input
+            type="checkbox"
+            checked={fontWeight === 'bold'}
+            onChange={(e) => handleStyleChange('fontWeight', e.target.checked ? 'bold' : 'normal')}
+          />
+        </label>
+        <label>
+          Italics:
+          <input
+            type="checkbox"
+            checked={fontStyle === 'italic'}
+            onChange={(e) => handleStyleChange('fontStyle', e.target.checked ? 'italic' : 'normal')}
+          />
+        </label>
+        <label>
+          Text Align:
+          <select
+            value={textAlign}
+            onChange={(e) => handleStyleChange('textAlign', e.target.value)}
+          >
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+        </label>
+      </div>
+      <div
+        className="resume"
+        contentEditable
+        style={{
+          fontSize: `${fontSize}px`,
+          fontFamily: fontFamily,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle,
+          textAlign: textAlign,
+        }}
+      >
+        <h2>{myResumeJson.name}</h2>
+        <p>{myResumeJson.professionalSummary}</p>
+        {/* Render other sections similarly */}
+      </div>
       <button onClick={downloadPDF}>Download as PDF</button>
+      <button onClick={downloadDOCX}>Download as DOCX</button>
     </div>
   );
 }
