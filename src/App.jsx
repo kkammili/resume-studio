@@ -147,10 +147,6 @@ function App() {
       <h1>Resume Studio</h1>
       <div className="controls">
         <label>
-          Font Size:
-          <input type="number" onChange={(e) => applyStyle('fontSize', e.target.value)} />
-        </label>
-        <label>
           Font Family:
           <select onChange={(e) => applyStyle('fontName', e.target.value)}>
             <option value="Arial">Arial</option>
@@ -158,32 +154,12 @@ function App() {
             <option value="Courier New">Courier New</option>
           </select>
         </label>
-        <label>
-          Bold:
-          <input type="checkbox" onChange={() => applyStyle('bold')} />
-        </label>
-        <label>
-          Italics:
-          <input type="checkbox" onChange={() => applyStyle('italic')} />
-        </label>
-        <label>
-          Text Align:
-          <select onChange={(e) => applyStyle('justify' + e.target.value)}>
-            <option value="left">Left</option>
-            <option value="center">Center</option>
-            <option value="right">Right</option>
-          </select>
-        </label>
       </div>
       <div
         className="resume"
         contentEditable
         style={{
-          fontSize: `${fontSize}px`,
           fontFamily: fontFamily,
-          fontWeight: fontWeight,
-          fontStyle: fontStyle,
-          textAlign: textAlign,
         }}
       >
         <h2>{myResumeJson.name}</h2>
