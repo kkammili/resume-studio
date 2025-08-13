@@ -6,10 +6,15 @@
   color: #333;
 }
 
+.resume .contact-info {
+  text-align: justify;
+}
+
 .resume div {
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ccc;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 .controls {
@@ -26,7 +31,8 @@
   line-height: 1.6;
 }
 
-.resume h2 {
+.resume h2, .resume h3 {
+  color: #2c3e50;
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 0.5rem;

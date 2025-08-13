@@ -167,7 +167,7 @@ function App() {
         }}
       >
         <h2>{myResumeJson.name}</h2>
-        <div>
+        <div className="contact-info">
           <h3>Contact</h3>
           <p>{myResumeJson.contact.location}</p>
           <p>{myResumeJson.contact.email}</p>
