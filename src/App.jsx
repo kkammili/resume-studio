@@ -228,8 +228,70 @@ function App() {
         }}
       >
         <h2>{myResumeJson.name}</h2>
-        <p>{myResumeJson.professionalSummary}</p>
-        {/* Render other sections similarly */}
+        <div>
+          <h3>Contact</h3>
+          <p>{myResumeJson.contact.location}</p>
+          <p>{myResumeJson.contact.email}</p>
+          <p>{myResumeJson.contact.phone}</p>
+          <p>{myResumeJson.contact.linkedin}</p>
+        </div>
+        <div>
+          <h3>Professional Summary</h3>
+          <p>{myResumeJson.professionalSummary}</p>
+        </div>
+        <div>
+          <h3>Technical Skills</h3>
+          {Object.entries(myResumeJson.technicalSkills).map(([category, skills]) => (
+            <div key={category}>
+              <strong>{category}:</strong> {skills.join(', ')}
+            </div>
+          ))}
+        </div>
+        <div>
+          <h3>Work Experience</h3>
+          {myResumeJson.workExperience.map((job, index) => (
+            <div key={index}>
+              <strong>{job.role} at {job.company}</strong>
+              <p>{job.location}</p>
+              <p>{job.startDate} - {job.endDate}</p>
+              {job.projects.map((project, pIndex) => (
+                <div key={pIndex}>
+                  <strong>Project: {project.name}</strong>
+                  <p>{project.description}</p>
+                  <ul>
+                    {project.keyAchievements.map((achievement, aIndex) => (
+                      <li key={aIndex}>{achievement}</li>
+                    ))}
+                  </ul>
+                  <p>Tech Stack: {project.techStack.join(', ')}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div>
+          <h3>Education</h3>
+          <p>{myResumeJson.education.degree}</p>
+          <p>{myResumeJson.education.university}</p>
+          <p>GPA: {myResumeJson.education.gpa}</p>
+          <p>Year: {myResumeJson.education.year}</p>
+        </div>
+        <div>
+          <h3>Certifications</h3>
+          <ul>
+            {myResumeJson.certifications.map((certification, index) => (
+              <li key={index}>{certification}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Awards</h3>
+          <ul>
+            {myResumeJson.awards.map((award, index) => (
+              <li key={index}>{award}</li>
+            ))}
+          </ul>
+        </div>
       </div>
       <button onClick={downloadPDF}>Download as PDF</button>
       <button onClick={downloadDOCX}>Download as DOCX</button>
