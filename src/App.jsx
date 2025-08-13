@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 
 function App() {
