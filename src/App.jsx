@@ -108,11 +108,6 @@ function App() {
     ],
   };
 
-  const [fontSize, setFontSize] = useState(14);
-  const [fontFamily, setFontFamily] = useState('Arial');
-  const [fontWeight, setFontWeight] = useState('normal');
-  const [fontStyle, setFontStyle] = useState('normal');
-  const [textAlign, setTextAlign] = useState('left');
 
   const applyStyle = (command, value = null) => {
     document.execCommand(command, false, value);
@@ -153,7 +148,7 @@ function App() {
       <div className="controls">
         <label>
           Font Size:
-          <input type="number" onChange={(e) => applyStyle('fontSize', e.target.value + 'px')} />
+          <input type="number" onChange={(e) => applyStyle('fontSize', e.target.value)} />
         </label>
         <label>
           Font Family:
