@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './App.css';
+import { Button } from 'shadcn-ui';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 
 function App() {
-  const [fontFamily, setFontFamily] = useState('Arial');
+  const [fontFamily, setFontFamily] = useState('Inter');
   const [resumeSections, setResumeSections] = useState([
     'Professional Summary',
     'Technical Skills',
@@ -144,7 +145,7 @@ function App() {
   };
 
   return (
-    <div className="resume-studio">
+    <div className="container">
       <h1>Resume Studio</h1>
       <div className="controls">
         <label>
@@ -232,8 +233,8 @@ function App() {
           </ul>
         </div>
       </div>
-      <button onClick={downloadPDF}>Download as PDF</button>
-      <button onClick={downloadDOCX}>Download as DOCX</button>
+      <Button onClick={downloadPDF}>Download as PDF</Button>
+      <Button onClick={downloadDOCX}>Download as DOCX</Button>
     </div>
   );
 }

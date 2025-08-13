@@ -1,69 +1,33 @@
-.resume-studio {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Arial', sans-serif;
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
   color: #333;
 }
 
-.resume .contact-info {
-  text-align: justify;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.resume div {
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-}
-
-.controls {
-  margin-bottom: 1rem;
-  text-align: left;
-}
-
-.controls label {
-  margin-right: 1rem;
-}
-
-.resume {
-  text-align: left;
-  line-height: 1.6;
-}
-
-.resume h2, .resume h3 {
+h1, h2, h3 {
   color: #2c3e50;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.resume h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.resume p, .resume li, .resume div {
-  font-size: 14px;
-  margin: 0.2rem 0;
-}
-
-.resume ul {
-  padding-left: 20px;
 }
 
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
+  background-color: #3498db;
   color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
