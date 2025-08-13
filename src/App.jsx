@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { Button } from 'shadcn-ui';
+import Button from '@mui/material/Button';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
