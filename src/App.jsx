@@ -114,26 +114,8 @@ function App() {
   const [fontStyle, setFontStyle] = useState('normal');
   const [textAlign, setTextAlign] = useState('left');
 
-  const handleStyleChange = (style, value) => {
-    switch (style) {
-      case 'fontSize':
-        setFontSize(value);
-        break;
-      case 'fontFamily':
-        setFontFamily(value);
-        break;
-      case 'fontWeight':
-        setFontWeight(value);
-        break;
-      case 'fontStyle':
-        setFontStyle(value);
-        break;
-      case 'textAlign':
-        setTextAlign(value);
-        break;
-      default:
-        break;
-    }
+  const applyStyle = (command, value = null) => {
+    document.execCommand(command, false, value);
   };
 
   const downloadPDF = () => {
@@ -171,18 +153,11 @@ function App() {
       <div className="controls">
         <label>
           Font Size:
-          <input
-            type="number"
-            value={fontSize}
-            onChange={(e) => handleStyleChange('fontSize', e.target.value)}
-          />
+          <input type="number" onChange={(e) => applyStyle('fontSize', e.target.value + 'px')} />
         </label>
         <label>
           Font Family:
-          <select
-            value={fontFamily}
-            onChange={(e) => handleStyleChange('fontFamily', e.target.value)}
-          >
+          <select onChange={(e) => applyStyle('fontName', e.target.value)}>
             <option value="Arial">Arial</option>
             <option value="Times New Roman">Times New Roman</option>
             <option value="Courier New">Courier New</option>
@@ -190,26 +165,15 @@ function App() {
         </label>
         <label>
           Bold:
-          <input
-            type="checkbox"
-            checked={fontWeight === 'bold'}
-            onChange={(e) => handleStyleChange('fontWeight', e.target.checked ? 'bold' : 'normal')}
-          />
+          <input type="checkbox" onChange={() => applyStyle('bold')} />
         </label>
         <label>
           Italics:
-          <input
-            type="checkbox"
-            checked={fontStyle === 'italic'}
-            onChange={(e) => handleStyleChange('fontStyle', e.target.checked ? 'italic' : 'normal')}
-          />
+          <input type="checkbox" onChange={() => applyStyle('italic')} />
         </label>
         <label>
           Text Align:
-          <select
-            value={textAlign}
-            onChange={(e) => handleStyleChange('textAlign', e.target.value)}
-          >
+          <select onChange={(e) => applyStyle('justify' + e.target.value)}>
             <option value="left">Left</option>
             <option value="center">Center</option>
             <option value="right">Right</option>
