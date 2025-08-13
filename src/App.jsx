@@ -5,6 +5,7 @@ import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 
 function App() {
+  const [fontFamily, setFontFamily] = useState('Arial');
   const [resumeSections, setResumeSections] = useState([
     'Professional Summary',
     'Technical Skills',
@@ -148,7 +149,10 @@ function App() {
       <div className="controls">
         <label>
           Font Family:
-          <select onChange={(e) => applyStyle('fontName', e.target.value)}>
+          <select onChange={(e) => {
+            setFontFamily(e.target.value);
+            applyStyle('fontName', e.target.value);
+          }}>
             <option value="Arial">Arial</option>
             <option value="Times New Roman">Times New Roman</option>
             <option value="Courier New">Courier New</option>
