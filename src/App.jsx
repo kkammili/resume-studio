@@ -1,7 +1,18 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { saveAs } from 'file-saver';
+import { jsPDF } from 'jspdf';
 
 function App() {
+  const [resumeSections, setResumeSections] = useState([
+    'Professional Summary',
+    'Technical Skills',
+    'Work Experience',
+    'Education',
+    'Certifications',
+    'Awards',
+  ]);
 
   const myResumeJson = {
     name: "KRISHNAM RAJU KAMMILI",
@@ -95,13 +106,51 @@ function App() {
       "Lumen's 2022 Employee of the Year",
       "Fidelity's Q2 2024 Most Valuable Associate",
     ],
-  }
+  };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(resumeSections);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setResumeSections(items);
+  };
+
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Resume", 10, 10);
+    doc.save("resume.pdf");
+  };
 
   return (
-    <>
-
-    </>
-  )
+    <div className="resume-studio">
+      <h1>Resume Studio</h1>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="sections">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {resumeSections.map((section, index) => (
+                <Draggable key={section} draggableId={section} index={index}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className="resume-section"
+                    >
+                      {section}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+      <button onClick={downloadPDF}>Download as PDF</button>
+    </div>
+  );
 }
 
-export default App
+export default App;
