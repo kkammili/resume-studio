@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
 
@@ -108,12 +108,43 @@ function App() {
     ],
   };
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
-    const items = Array.from(resumeSections);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setResumeSections(items);
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      const oldIndex = resumeSections.indexOf(active.id);
+      const newIndex = resumeSections.indexOf(over.id);
+      const newSections = Array.from(resumeSections);
+      newSections.splice(oldIndex, 1);
+      newSections.splice(newIndex, 0, active.id);
+      setResumeSections(newSections);
+    }
+  };
+
+  const DraggableSection = ({ id, children }) => {
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+      id,
+    });
+    const style = {
+      transform: `translate3d(${transform?.x}px, ${transform?.y}px, 0)`,
+    };
+
+    return (
+      <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="resume-section">
+        {children}
+      </div>
+    );
+  };
+
+  const DroppableArea = ({ children }) => {
+    const { setNodeRef } = useDroppable({
+      id: 'droppable',
+    });
+
+    return (
+      <div ref={setNodeRef}>
+        {children}
+      </div>
+    );
   };
 
   const downloadPDF = () => {
@@ -125,29 +156,15 @@ function App() {
   return (
     <div className="resume-studio">
       <h1>Resume Studio</h1>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="sections">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {resumeSections.map((section, index) => (
-                <Draggable key={section} draggableId={section} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      className="resume-section"
-                    >
-                      {section}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <DndContext onDragEnd={handleDragEnd}>
+        <DroppableArea>
+          {resumeSections.map((section) => (
+            <DraggableSection key={section} id={section}>
+              {section}
+            </DraggableSection>
+          ))}
+        </DroppableArea>
+      </DndContext>
       <button onClick={downloadPDF}>Download as PDF</button>
     </div>
   );
