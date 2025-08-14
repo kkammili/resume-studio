@@ -167,8 +167,7 @@ function App() {
         }}
       >
         <h2 className="text-center">{myResumeJson.name}</h2>
-        <div className="contact-info mb-4">
-          <h3 className="text-lg font-semibold">Contact</h3>
+        <div className="contact-info mb-4 flex">
           <p>{myResumeJson.contact.location}</p>
           <p>{myResumeJson.contact.email}</p>
           <p>{myResumeJson.contact.phone}</p>
