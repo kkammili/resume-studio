@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import Button from '@mui/material/Button';
 import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
@@ -145,7 +144,7 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div className="container max-w-2xl mx-auto p-5 bg-white shadow-md rounded-md">
       <h1>Resume Studio</h1>
       <div className="controls">
         <label>
@@ -233,8 +232,18 @@ function App() {
           </ul>
         </div>
       </div>
-      <Button onClick={downloadPDF}>Download as PDF</Button>
-      <Button onClick={downloadDOCX}>Download as DOCX</Button>
+      <button
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        onClick={downloadPDF}
+      >
+        Download as PDF
+      </button>
+      <button
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-2"
+        onClick={downloadDOCX}
+      >
+        Download as DOCX
+      </button>
     </div>
   );
 }
