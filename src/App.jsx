@@ -166,19 +166,19 @@ function App() {
           fontFamily: fontFamily,
         }}
       >
-        <h2>{myResumeJson.name}</h2>
+        <h2 className="text-center">{myResumeJson.name}</h2>
         <div className="contact-info mb-4">
-          <h3>Contact</h3>
+          <h3 className="text-lg font-semibold">Contact</h3>
           <p>{myResumeJson.contact.location}</p>
           <p>{myResumeJson.contact.email}</p>
           <p>{myResumeJson.contact.phone}</p>
           <p>{myResumeJson.contact.linkedin}</p>
         </div>
-        <div>
+        <div className="mt-6">
           <h3>Professional Summary</h3>
           <p>{myResumeJson.professionalSummary}</p>
         </div>
-        <div>
+        <div className="mt-6">
           <h3>Technical Skills</h3>
           {Object.entries(myResumeJson.technicalSkills).map(([category, skills]) => (
             <div key={category}>
