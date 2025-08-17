@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import './App.css';
-import { jsPDF } from 'jspdf';
+// import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 
 function App() {
   const [fontFamily, setFontFamily] = useState('Inter');
-  const [resumeSections, setResumeSections] = useState([
-    'Professional Summary',
-    'Technical Skills',
-    'Work Experience',
-    'Education',
-    'Certifications',
-    'Awards',
-  ]);
+  // const [resumeSections, setResumeSections] = useState([
+  //   'Professional Summary',
+  //   'Technical Skills',
+  //   'Work Experience',
+  //   'Education',
+  //   'Certifications',
+  //   'Awards',
+  // ]);
 
   const myResumeJson = {
     name: "KRISHNAM RAJU KAMMILI",
@@ -33,7 +33,8 @@ function App() {
       Databases: ["MongoDB", "PostgreSQL", "MySQL", "Redis"],
     },
     workExperience: [
-      { role: "Sr. Full Stack Developer", company: "Fidelity", location: "Durham, NC", startDate: "May 2023", endDate: "Present", projects: [
+      {
+        role: "Sr. Full Stack Developer", company: "Fidelity", location: "Durham, NC", startDate: "May 2023", endDate: "Present", projects: [
           {
             name: "Plan Sponsor WebStation (PSW) Modernization",
             description:
@@ -108,34 +109,34 @@ function App() {
     document.execCommand(command, false, value);
   };
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
-    doc.text("Resume", 10, 10);
-    doc.save("resume.pdf");
-  };
+  // const downloadPDF = () => {
+  //   const doc = new jsPDF();
+  //   doc.text("Resume", 10, 10);
+  //   doc.save("resume.pdf");
+  // };
 
-  const downloadDOCX = () => {
-    const doc = new Document({
-      sections: [
-        {
-          children: [
-            new Paragraph({
-              children: [
-                new TextRun({
-                  text: "Resume",
-                  bold: true,
-                }),
-              ],
-            }),
-          ],
-        },
-      ],
-    });
+  // const downloadDOCX = () => {
+  //   const doc = new Document({
+  //     sections: [
+  //       {
+  //         children: [
+  //           new Paragraph({
+  //             children: [
+  //               new TextRun({
+  //                 text: "Resume",
+  //                 bold: true,
+  //               }),
+  //             ],
+  //           }),
+  //         ],
+  //       },
+  //     ],
+  //   });
 
-    Packer.toBlob(doc).then((blob) => {
-      saveAs(blob, "resume.docx");
-    });
-  };
+  //   Packer.toBlob(doc).then((blob) => {
+  //     saveAs(blob, "resume.docx");
+  //   });
+  // };
 
 
   return (
@@ -198,28 +199,23 @@ function App() {
           ))}
         </div>
         <div>
-          <h3>Certifications</h3>
-          <ul>
-            {myResumeJson.certifications.map((certification, index) => (
-              <li key={index}>{certification}</li>
-            ))}
-          </ul>
-          <h3>Education</h3>
-          <div>
-            <p>{myResumeJson.education.degree}</p>
-            <p>{myResumeJson.education.university}</p>
-            <p>GPA: {myResumeJson.education.gpa}</p>
-            <p>Year: {myResumeJson.education.year}</p>
+          <h3>Education & Certifications</h3>
+          <div className="education-info mb-4 flex">
+            <p>{myResumeJson.education.degree} | {myResumeJson.education.university} | GPA: {myResumeJson.education.gpa} | Year: {myResumeJson.education.year}</p>
           </div>
-          <h3>Awards</h3>
           <ul>
             {myResumeJson.awards.map((award, index) => (
               <li key={index}>{award}</li>
             ))}
           </ul>
+          <ul>
+            {myResumeJson.certifications.map((certification, index) => (
+              <li key={index}>{certification}</li>
+            ))}
+          </ul>
         </div>
       </div>
-      <button
+      {/* <button
         className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
         onClick={downloadPDF}
       >
@@ -230,7 +226,7 @@ function App() {
         onClick={downloadDOCX}
       >
         Download as DOCX
-      </button>
+      </button> */}
     </div>
   );
 }
