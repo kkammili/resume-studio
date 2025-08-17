@@ -6,7 +6,6 @@ import { saveAs } from 'file-saver';
 
 function App() {
   const [fontFamily, setFontFamily] = useState('Inter');
-  const [theme, setTheme] = useState('light');
   const [resumeSections, setResumeSections] = useState([
     'Professional Summary',
     'Technical Skills',
@@ -138,20 +137,11 @@ function App() {
     });
   };
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
 
   return (
-    <div className={`container max-w-2xl mx-auto p-5 shadow-md rounded-md ${theme === 'light' ? 'bg-white text-black' : 'bg-gray-800 text-white'}`}>
+    <div className="container max-w-2xl mx-auto p-5 shadow-md rounded-md bg-white text-black">
       <h1>Resume Studio</h1>
       <div className="controls flex justify-between items-center">
-        <button
-          className="bg-gray-300 text-black py-1 px-3 rounded hover:bg-gray-400"
-          onClick={toggleTheme}
-        >
-          Toggle to {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
         <label>
           Font Family:
           <select onChange={(e) => {
