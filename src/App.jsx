@@ -1,19 +1,30 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 // import { jsPDF } from 'jspdf';
-import { Document, Packer, Paragraph, TextRun } from 'docx';
-// import { saveAs } from 'file-saver';
+// import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
+import htmlToDocx from "html-to-docx";
 
 function App() {
   const [fontFamily, setFontFamily] = useState('Inter');
-  // const [resumeSections, setResumeSections] = useState([
-  //   'Professional Summary',
-  //   'Technical Skills',
-  //   'Work Experience',
-  //   'Education',
-  //   'Certifications',
-  //   'Awards',
-  // ]);
+  const resumeRef = useRef(null);
+
+  const applyStyle = (command, value = null) => {
+    document.execCommand(command, false, value);
+  };
+
+  const handleDownload = async () => {
+    const htmlString = resumeRef.current?.innerHTML;
+
+    const blob = await htmlToDocx(htmlString, null, {
+      table: { row: { cantSplit: true } }, // optional quality tweaks
+      footer: true,
+      pageNumber: true,
+    });
+
+    saveAs(blob, "KrishnamRaju_Resume.docx");
+
+  }
 
   const myResumeJson = {
     name: "KRISHNAM RAJU KAMMILI",
@@ -104,11 +115,6 @@ function App() {
     ],
   };
 
-
-  const applyStyle = (command, value = null) => {
-    document.execCommand(command, false, value);
-  };
-
   // const downloadPDF = () => {
   //   const doc = new jsPDF();
   //   doc.text("Resume", 10, 10);
@@ -158,6 +164,7 @@ function App() {
       <div
         className="resume"
         contentEditable
+        ref={resumeRef}
         style={{
           fontFamily: fontFamily,
         }}
@@ -220,13 +227,13 @@ function App() {
         onClick={downloadPDF}
       >
         Download as PDF
-      </button>
+      </button> */}
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-2"
-        onClick={downloadDOCX}
+        className="text-black py-2 px-4 rounded hover:bg-blue-600 ml-2"
+        onClick={() => handleDownload()}
       >
         Download as DOCX
-      </button> */}
+      </button>
     </div>
   );
 }
