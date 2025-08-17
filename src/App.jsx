@@ -204,21 +204,19 @@ function App() {
               <li key={index}>{certification}</li>
             ))}
           </ul>
-          <h3>Education & Awards</h3>
+          <h3>Education</h3>
           <div>
             <p>{myResumeJson.education.degree}</p>
             <p>{myResumeJson.education.university}</p>
             <p>GPA: {myResumeJson.education.gpa}</p>
             <p>Year: {myResumeJson.education.year}</p>
           </div>
-          <div>
-            <h4>Awards</h4>
-            <ul>
-              {myResumeJson.awards.map((award, index) => (
-                <li key={index}>{award}</li>
-              ))}
-            </ul>
-          </div>
+          <h3>Awards</h3>
+          <ul>
+            {myResumeJson.awards.map((award, index) => (
+              <li key={index}>{award}</li>
+            ))}
+          </ul>
         </div>
       </div>
       <button
