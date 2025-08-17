@@ -198,6 +198,12 @@ function App() {
           ))}
         </div>
         <div>
+          <h3>Certifications</h3>
+          <ul>
+            {myResumeJson.certifications.map((certification, index) => (
+              <li key={index}>{certification}</li>
+            ))}
+          </ul>
           <h3>Education & Awards</h3>
           <div>
             <p>{myResumeJson.education.degree}</p>
