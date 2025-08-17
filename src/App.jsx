@@ -180,9 +180,7 @@ function App() {
           <h3>Work Experience</h3>
           {myResumeJson.workExperience.map((job, index) => (
             <div key={index}>
-              <strong>{job.role} at {job.company}</strong>
-              <p>{job.location}</p>
-              <p>{job.startDate} - {job.endDate}</p>
+              <p><strong>{job.role} at {job.company}</strong> | {job.location} | {job.startDate} - {job.endDate}</p>
               {job.projects.map((project, pIndex) => (
                 <div key={pIndex}>
                   <strong>Project: {project.name}</strong>
