@@ -198,16 +198,20 @@ function App() {
         </div>
         <div>
           <h3>Education & Awards</h3>
-          <p>{myResumeJson.education.degree}</p>
-          <p>{myResumeJson.education.university}</p>
-          <p>GPA: {myResumeJson.education.gpa}</p>
-          <p>Year: {myResumeJson.education.year}</p>
-          <h4>Awards</h4>
-          <ul>
-            {myResumeJson.awards.map((award, index) => (
-              <li key={index}>{award}</li>
-            ))}
-          </ul>
+          <div>
+            <p>{myResumeJson.education.degree}</p>
+            <p>{myResumeJson.education.university}</p>
+            <p>GPA: {myResumeJson.education.gpa}</p>
+            <p>Year: {myResumeJson.education.year}</p>
+          </div>
+          <div>
+            <h4>Awards</h4>
+            <ul>
+              {myResumeJson.awards.map((award, index) => (
+                <li key={index}>{award}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <button
