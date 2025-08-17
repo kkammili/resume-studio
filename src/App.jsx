@@ -33,13 +33,7 @@ function App() {
       Databases: ["MongoDB", "PostgreSQL", "MySQL", "Redis"],
     },
     workExperience: [
-      {
-        role: "Sr. Full Stack Developer",
-        company: "Fidelity",
-        location: "Durham, NC",
-        startDate: "May 2023",
-        endDate: "Present",
-        projects: [
+      { role: "Sr. Full Stack Developer", company: "Fidelity", location: "Durham, NC", startDate: "May 2023", endDate: "Present", projects: [
           {
             name: "Plan Sponsor WebStation (PSW) Modernization",
             description:
@@ -168,10 +162,7 @@ function App() {
       >
         <h2 className="text-center">{myResumeJson.name}</h2>
         <div className="contact-info mb-4 flex">
-          <p>{myResumeJson.contact.location}</p>
-          <p>{myResumeJson.contact.email}</p>
-          <p>{myResumeJson.contact.phone}</p>
-          <p>{myResumeJson.contact.linkedin}</p>
+          <p>{myResumeJson.contact.location} | {myResumeJson.contact.email} | {myResumeJson.contact.phone} | {myResumeJson.contact.linkedin}</p>
         </div>
         <div className="mt-6">
           <h3>Professional Summary</h3>
